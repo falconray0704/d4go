@@ -1,6 +1,6 @@
 # Binaries for programs and plugins
+outBin
 tags
-uGrpc_server
 *.exe
 *.dll
 *.so
@@ -22,12 +22,14 @@ uGrpc_server
 .idea
 
 # vendor
-#vendor
+vendor
+
+# tmp
+tmp
+testDataTmp
 
 #logs
-logDatas
+./logsData/*.logs
 
-#cover testing
-cover.out
-cover.html
+
 
