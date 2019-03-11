@@ -1,4 +1,4 @@
-# tcp server demo
+# udp server demo
 
-Using tcp connection to response server time.
+Using udp connection to response server time.
 
