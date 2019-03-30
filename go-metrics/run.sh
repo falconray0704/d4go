@@ -44,17 +44,7 @@ run_native_cmd_test_func()
 
 run_docker_func()
 {
-    #docker run --rm -v $(pwd)/logDatas:/myApp/logDatas myapp:falcon
-    CONNECTIONS=$1
-    REPLICAS=$2
-    IP=$3
-
-    DATE=`date -d "+2 minutes" +"%FT%T %z"`
-    #go build --tags "static netgo" -o client client.go
-    for (( c=0; c<${REPLICAS}; c++ ))
-    do
-        docker run --rm -v $(pwd)/outBin:/client --name 1mclient_$c -d ubuntu /client -conn=${CONNECTIONS} -ip=${IP} -sm "${DATE}"
-    done
+    docker run --rm -v $(pwd)/logDatas:/myApp/logDatas myapp:falcon
 }
 
 run_clean_docker_datas_func()
@@ -80,14 +70,10 @@ mkdir -p ./logDatas
 
 case $1 in
     lc) echo "Run native..."
-#        run_native_func
+        run_native_func
         ;;
     dk) echo "Run in docker..."
-        run_docker_func $2 $3 $4
-        ;;
-    dkstop) echo "Stopping docker..."
-        #docker stop $(docker ps -a --format '{{.ID}} {{.Names}}' | grep '1mclient_' | awk '{print $1}')
-        docker ps --format '{{.Names}}' | grep "^1mclient" | awk '{print $1}' | xargs -I {} docker stop {}
+        run_docker_func
         ;;
     clean) echo "Clean datas..."
         run_clean_docker_datas_func

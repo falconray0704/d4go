@@ -64,12 +64,16 @@ func main() {
 	setLimit()
 
 	go func() {
+		/*
 		startPoint, err := time.Parse("2006-01-02T15:04:05 -0700", *startMetric)
 		if err != nil {
 			panic(err)
 		}
 		time.Sleep(startPoint.Sub(time.Now()))
+		*/
+		//time.Sleep(time.Second * 10)
 
+		//metrics.Log(metrics.DefaultRegistry, 5*time.Second, log.New(os.Stderr, "metrics: ", log.Lmicroseconds))
 		metrics.Log(metrics.DefaultRegistry, 5*time.Second, log.New(os.Stderr, "metrics: ", log.Lmicroseconds))
 	}()
 
@@ -124,13 +128,21 @@ func main() {
 
 func start() {
 	var nano int64
+	initNano := time.Now().UnixNano()
+	log.Printf("------------ start(), initNano:%d \n", initNano)
 	for {
-		connections, err := epoller.Wait()
+		epConns, err := epoller.Wait()
 		if err != nil {
 			log.Printf("failed to epoll wait %v", err)
 			continue
 		}
-		for _, conn := range connections {
+		/*
+		if cnt != 0 {
+			log.Printf("------------ start() looping wait, initNano:%d len:%d cnt:%d\n", initNano, len(epConns), cnt)
+		}
+		*/
+		for _, conn := range epConns {
+			//log.Printf("------------ start() looping connections, initNano:%d \n", initNano)
 			if conn == nil {
 				break
 			}
@@ -144,8 +156,16 @@ func start() {
 				conn.Close()
 				continue
 			} else {
+				/*
+				if idx % 5000 == 0 {
+					log.Println("latency: ", time.Now().UnixNano() - nano)
+				}
+				*/
 				opsRate.Update(time.Duration(time.Now().UnixNano() - nano))
+				//opsRate.Update(time.Millisecond * 500)
 			}
+
+			//log.Printf("latency2: %d", time.Now().UnixNano() - initNano)
 
 			err = binary.Write(conn, binary.BigEndian, time.Now().UnixNano())
 			if err != nil {
