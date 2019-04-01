@@ -10,7 +10,7 @@ run_native_func()
 
     #./outBin
     #./outBin -c="./configs/appCfgs.yaml"
-    DATE=`date -d "+2 minutes" +"%FT%T %z"`
+    DATE=`date -d "+3 minutes" +"%FT%T %z"`
     ./outBin -conn=$1 -ip=$2 -sm="${DATE}"
     echo "ret:$?"
 
@@ -86,7 +86,7 @@ case $1 in
         ;;
     dk) echo "Run in docker..."
 #        run_docker_func $2 $3 $4
-        run_docker_func 10000 100 172.17.0.1
+        run_docker_func 10000 50 172.17.0.1
         ;;
     dkstop) echo "Stopping docker..."
         #docker stop $(docker ps -a --format '{{.ID}} {{.Names}}' | grep '1mclient_' | awk '{print $1}')

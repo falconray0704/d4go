@@ -104,6 +104,8 @@ func main() {
 
 	go start()
 
+	time.Sleep(time.Minute * 3)
+	log.Println("--- streaming start ---")
 	for i := 0; i < len(conns); i++ {
 		time.Sleep(tts)
 		conn := conns[i]
