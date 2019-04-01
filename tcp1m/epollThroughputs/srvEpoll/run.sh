@@ -80,7 +80,7 @@ case $1 in
         run_native_func
         ;;
     dk) echo "Run in docker..."
-        run_docker_func
+#        run_docker_func
         ;;
     clean) echo "Clean datas..."
         run_clean_docker_datas_func

@@ -85,7 +85,8 @@ case $1 in
         run_native_func $2 $3
         ;;
     dk) echo "Run in docker..."
-        run_docker_func $2 $3 $4
+#        run_docker_func $2 $3 $4
+        run_docker_func 10000 100 172.17.0.1
         ;;
     dkstop) echo "Stopping docker..."
         #docker stop $(docker ps -a --format '{{.ID}} {{.Names}}' | grep '1mclient_' | awk '{print $1}')
