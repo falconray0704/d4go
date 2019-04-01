@@ -7,6 +7,13 @@ set -o nounset
 
 run_native_func()
 {
+    sudo sysctl -w fs.file-max=3000000
+    sudo sysctl -w fs.nr_open=3000000
+    sudo sysctl -w net.nf_conntrack_max=3000000
+    ulimit -n 3000000
+
+    sudo sysctl -w net.ipv4.tcp_tw_recycle=1
+    sudo sysctl -w net.ipv4.tcp_tw_reuse=1
 
     ./outBin
     #./outBin -c="./configs/appCfgs.yaml"

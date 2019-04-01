@@ -12,7 +12,6 @@ import (
 	"os"
 	"syscall"
 	"time"
-
 )
 
 func initSys() (clean func()) {
@@ -64,16 +63,12 @@ func main() {
 	setLimit()
 
 	go func() {
-		/*
 		startPoint, err := time.Parse("2006-01-02T15:04:05 -0700", *startMetric)
 		if err != nil {
 			panic(err)
 		}
 		time.Sleep(startPoint.Sub(time.Now()))
-		*/
-		//time.Sleep(time.Second * 10)
 
-		//metrics.Log(metrics.DefaultRegistry, 5*time.Second, log.New(os.Stderr, "metrics: ", log.Lmicroseconds))
 		metrics.Log(metrics.DefaultRegistry, 5*time.Second, log.New(os.Stderr, "metrics: ", log.Lmicroseconds))
 	}()
 
