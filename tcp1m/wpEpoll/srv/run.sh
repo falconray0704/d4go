@@ -15,7 +15,7 @@ run_native_func()
     sudo sysctl -w net.ipv4.tcp_tw_recycle=1
     sudo sysctl -w net.ipv4.tcp_tw_reuse=1
 
-    ./outBin -c=$1
+    ./outBin -c=$1 -ec=$2
     echo "ret:$?"
 
 }
@@ -76,7 +76,7 @@ mkdir -p ./logDatas
 
 case $1 in
     lc) echo "Run native..."
-        run_native_func 10
+        run_native_func 20 10
         ;;
     dk) echo "Run in docker..."
 #        run_docker_func
